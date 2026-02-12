@@ -7,11 +7,30 @@ import {
 } from "./pi-embedded-helpers.js";
 
 describe("formatAssistantErrorText", () => {
-  const makeAssistantError = (errorMessage: string): AssistantMessage =>
-    ({
-      stopReason: "error",
-      errorMessage,
-    }) as AssistantMessage;
+  const makeAssistantError = (errorMessage: string): AssistantMessage => ({
+    role: "assistant",
+    api: "openai-responses",
+    provider: "openai",
+    model: "test-model",
+    usage: {
+      input: 0,
+      output: 0,
+      cacheRead: 0,
+      cacheWrite: 0,
+      totalTokens: 0,
+      cost: {
+        input: 0,
+        output: 0,
+        cacheRead: 0,
+        cacheWrite: 0,
+        total: 0,
+      },
+    },
+    stopReason: "error",
+    errorMessage,
+    content: [{ type: "text", text: errorMessage }],
+    timestamp: 0,
+  });
 
   it("returns a friendly message for context overflow", () => {
     const msg = makeAssistantError("request_too_large");

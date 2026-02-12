@@ -4,8 +4,9 @@ import type { FailoverReason } from "./types.js";
 import { formatSandboxToolPolicyBlockedMessage } from "../sandbox.js";
 
 export function formatBillingErrorMessage(provider?: string): string {
-  if (provider) {
-    return `⚠️ ${provider} returned a billing error — your API key has run out of credits or has an insufficient balance. Check your ${provider} billing dashboard and top up or switch to a different API key.`;
+  const providerName = provider?.trim();
+  if (providerName) {
+    return `⚠️ ${providerName} returned a billing error — your API key has run out of credits or has an insufficient balance. Check your ${providerName} billing dashboard and top up or switch to a different API key.`;
   }
   return "⚠️ API provider returned a billing error — your API key has run out of credits or has an insufficient balance. Check your provider's billing dashboard and top up or switch to a different API key.";
 }
