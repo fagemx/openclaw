@@ -1,6 +1,10 @@
 import type { AssistantMessage } from "@mariozechner/pi-ai";
 import { describe, expect, it } from "vitest";
-import { BILLING_ERROR_USER_MESSAGE, formatAssistantErrorText } from "./pi-embedded-helpers.js";
+import {
+  BILLING_ERROR_USER_MESSAGE,
+  formatBillingErrorMessage,
+  formatAssistantErrorText,
+} from "./pi-embedded-helpers.js";
 
 describe("formatAssistantErrorText", () => {
   const makeAssistantError = (errorMessage: string): AssistantMessage =>
@@ -66,6 +70,19 @@ describe("formatAssistantErrorText", () => {
   it("returns a friendly billing message for insufficient credits", () => {
     const msg = makeAssistantError("insufficient credits");
     const result = formatAssistantErrorText(msg);
+    expect(result).toBe(BILLING_ERROR_USER_MESSAGE);
+  });
+  it("includes provider name in billing message when provider is given", () => {
+    const msg = makeAssistantError("insufficient credits");
+    const result = formatAssistantErrorText(msg, { provider: "Anthropic" });
+    expect(result).toBe(formatBillingErrorMessage("Anthropic"));
+    expect(result).toContain("Anthropic");
+    expect(result).not.toContain("API provider");
+  });
+  it("returns generic billing message when provider is not given", () => {
+    const msg = makeAssistantError("insufficient credits");
+    const result = formatAssistantErrorText(msg);
+    expect(result).toContain("API provider");
     expect(result).toBe(BILLING_ERROR_USER_MESSAGE);
   });
 });
