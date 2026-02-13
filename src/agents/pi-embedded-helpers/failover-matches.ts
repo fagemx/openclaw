@@ -92,6 +92,16 @@ const ERROR_PATTERNS = {
     "invalid request format",
     /tool call id was.*must be/i,
   ],
+  connection: [
+    "connection error",
+    "apiconnectionerror",
+    "socket hang up",
+    /\beconn(?:refused|reset|aborted)\b/i,
+    /\benotfound\b/i,
+    "fetch failed",
+    "network error",
+    "dns lookup failed",
+  ],
 } as const;
 
 const BILLING_ERROR_HEAD_RE =
@@ -159,4 +169,8 @@ export function isAuthErrorMessage(raw: string): boolean {
 
 export function isOverloadedErrorMessage(raw: string): boolean {
   return matchesErrorPatterns(raw, ERROR_PATTERNS.overloaded);
+}
+
+export function isConnectionErrorMessage(raw: string): boolean {
+  return matchesErrorPatterns(raw, ERROR_PATTERNS.connection);
 }

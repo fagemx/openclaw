@@ -28,6 +28,7 @@ export {
   isCloudflareOrHtmlErrorPage,
   isCloudCodeAssistFormatError,
   isCompactionFailureError,
+  isConnectionErrorMessage,
   isContextOverflowError,
   isLikelyContextOverflowError,
   isFailoverAssistantError,
