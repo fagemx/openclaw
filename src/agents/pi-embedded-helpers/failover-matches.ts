@@ -98,8 +98,10 @@ const ERROR_PATTERNS = {
     "socket hang up",
     /\beconn(?:refused|reset|aborted)\b/i,
     /\benotfound\b/i,
+    /\beai_again\b/i,
     "fetch failed",
     "network error",
+    "network request failed",
     "dns lookup failed",
   ],
 } as const;

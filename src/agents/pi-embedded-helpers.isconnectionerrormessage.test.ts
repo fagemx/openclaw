@@ -14,6 +14,8 @@ describe("isConnectionErrorMessage", () => {
     expect(isConnectionErrorMessage("fetch failed")).toBe(true);
     expect(isConnectionErrorMessage("network error")).toBe(true);
     expect(isConnectionErrorMessage("DNS lookup failed")).toBe(true);
+    expect(isConnectionErrorMessage("getaddrinfo EAI_AGAIN api.anthropic.com")).toBe(true);
+    expect(isConnectionErrorMessage("network request failed")).toBe(true);
     expect(isConnectionErrorMessage("APIConnectionError: Connection error.")).toBe(true);
   });
 
